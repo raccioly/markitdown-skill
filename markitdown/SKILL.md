@@ -30,6 +30,8 @@ structured, token-lean Markdown (headings, tables, lists survive).
    - If `markitdown` is on PATH, use it.
    - Otherwise, if `uvx` is available, use `uvx "markitdown[all]"` as a
      drop-in replacement (ephemeral, no install).
+   - Otherwise, in a sandboxed environment (Cowork, claude.ai) with Python
+     available, install into the session: `pip install "markitdown[all]"`.
    - Otherwise ask the user to install it: `pipx install "markitdown[all]"`.
 
 2. Convert:

@@ -49,6 +49,12 @@ cp -r markitdown-skill/markitdown ~/.claude/skills/
 cp -r markitdown-skill/markitdown <your-repo>/.claude/skills/
 ```
 
+**Or on claude.ai / Claude Desktop / Cowork (no terminal needed):**
+
+1. Download `markitdown-skill.zip` from the [latest release](https://github.com/raccioly/markitdown-skill/releases/latest)
+2. In Claude: **Settings → Capabilities → Skills → Upload skill** and pick the zip
+3. Done — in Cowork the skill installs the MarkItDown CLI inside the session sandbox automatically (`pip install "markitdown[all]"`), so step 1 of the CLI install isn't needed there.
+
 That's it. Next Claude Code session, ask something like *"summarize report.docx"* — the skill
 loads automatically. You can also trigger it explicitly with `/markitdown`.
 
