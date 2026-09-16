@@ -17,6 +17,16 @@ markitdown/
 └── SKILL.md    ← the skill (works with Claude Code and any agent supporting Agent Skills)
 ```
 
+## Setup / Getting Started
+
+1. Install the MarkItDown CLI with `pipx install "markitdown[all]"` or `uv tool install "markitdown[all]"` (or use `uvx` with no install).
+2. Install the skill (copy `markitdown/` into your agent skills dir, or upload the release zip).
+3. Verify: `markitdown --version` and ask the host agent to summarize a sample `.docx`.
+
+Maintainers: `bash tests/smoke.sh` and `docguard score`.
+
+See [docs-canonical/ENVIRONMENT.md](docs-canonical/ENVIRONMENT.md) for prerequisites (no required env vars).
+
 ## Install (2 steps, ~2 minutes)
 
 ### 1. Install the MarkItDown CLI (one of these)
@@ -66,6 +76,19 @@ markitdown some-file.docx | head -20
 
 Then in Claude Code: "What are the key points in `some-file.pptx`?" — you should see it run
 `markitdown` instead of writing a Python script.
+
+
+## Usage
+
+Once installed, ask the host agent to summarize or extract from a supported file, or invoke `/markitdown` explicitly.
+
+Examples:
+
+- "Summarize `report.docx`"
+- "Extract the tables from `deck.pptx` into bullet points"
+- "Convert this spreadsheet to Markdown so I can read sheet names and values"
+
+The skill should run the MarkItDown CLI (or `uvx` / session install fallback) rather than writing a one-off extraction script.
 
 ## Scope
 

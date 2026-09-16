@@ -1,0 +1,27 @@
+name: smoke
+on:
+  pull_request:
+  push:
+    branches: [chore/docguard-init-scaffold]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skill package present
+        run: test -f markitdown/SKILL.md && test -f docs-canonical/ARCHITECTURE.md
+      - name: Canonical docs have real length
+        run: |
+          set -euo pipefail
+          for f in docs-canonical/*.md; do
+            total=$(wc -l < "$f")
+            # Tables and headings count as content; only skip HTML comments + blank lines
+            body=$(grep -cvE '^\s*(<!--|$)' "$f" || true)
+            echo "$f total=$total body=$body"
+            test "$total" -ge 20
+            test "$body" -ge 10
+          done
+      - name: Optional MarkItDown CLI smoke
+        continue-on-error: true
+        run: |
+          bash tests/smoke.sh || true

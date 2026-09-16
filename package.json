@@ -1,0 +1,8 @@
+{
+  "name": "markitdown-skill",
+  "private": true,
+  "description": "Agent Skill packaging for MarkItDown — docs + smoke only",
+  "scripts": {
+    "test": "bash tests/smoke.sh"
+  }
+}
