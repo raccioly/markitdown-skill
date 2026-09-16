@@ -1,0 +1,24 @@
+name: smoke
+on:
+  pull_request:
+  push:
+    branches: [chore/docguard-init-scaffold]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Skill package present
+        run: test -f markitdown/SKILL.md && test -f docs-canonical/ARCHITECTURE.md
+      - name: Canonical docs non-empty
+        run: |
+          for f in docs-canonical/*.md; do
+            lines=$(grep -vE '^\s*(<!--|#|\||$|>)' "$f" | wc -l)
+            echo "$f content-ish lines=$lines"
+            test "$lines" -gt 5
+          done
+      - name: Optional MarkItDown CLI smoke
+        continue-on-error: true
+        run: |
+          pipx install "markitdown[all]" || true
+          bash tests/smoke.sh || true
