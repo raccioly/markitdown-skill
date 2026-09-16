@@ -4,6 +4,7 @@
 <!-- docguard:status draft | review | approved -->
 <!-- docguard:last-reviewed 2026-09-16 -->
 <!-- docguard:owner @raccioly -->
+<!-- docguard:quality negation-load off — skill docs intentionally list exclusions (PDF/images/create-edit) and non-goals -->
 
 > **Canonical document** — Design intent. This file describes WHAT the system is designed to be.
 > ⚠️ Changes to this file require review. Update `DRIFT-LOG.md` if packaging or skill behavior deviate.

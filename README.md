@@ -17,6 +17,16 @@ markitdown/
 └── SKILL.md    ← the skill (works with Claude Code and any agent supporting Agent Skills)
 ```
 
+## Setup / Getting Started
+
+1. Install the MarkItDown CLI with `pipx install "markitdown[all]"` or `uv tool install "markitdown[all]"` (or use `uvx` with no install).
+2. Install the skill (copy `markitdown/` into your agent skills dir, or upload the release zip).
+3. Verify: `markitdown --version` and ask the host agent to summarize a sample `.docx`.
+
+Maintainers: `bash tests/smoke.sh` and `docguard score`.
+
+See [docs-canonical/ENVIRONMENT.md](docs-canonical/ENVIRONMENT.md) for prerequisites (no required env vars).
+
 ## Install (2 steps, ~2 minutes)
 
 ### 1. Install the MarkItDown CLI (one of these)
