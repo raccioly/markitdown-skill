@@ -10,15 +10,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Skill package present
         run: test -f markitdown/SKILL.md && test -f docs-canonical/ARCHITECTURE.md
-      - name: Canonical docs non-empty
+      - name: Canonical docs have real length
         run: |
+          set -euo pipefail
           for f in docs-canonical/*.md; do
-            lines=$(grep -vE '^\s*(<!--|#|\||$|>)' "$f" | wc -l)
-            echo "$f content-ish lines=$lines"
-            test "$lines" -gt 5
+            total=$(wc -l < "$f")
+            # Tables and headings count as content; only skip HTML comments + blank lines
+            body=$(grep -cvE '^\s*(<!--|$)' "$f" || true)
+            echo "$f total=$total body=$body"
+            test "$total" -ge 20
+            test "$body" -ge 10
           done
       - name: Optional MarkItDown CLI smoke
         continue-on-error: true
         run: |
-          pipx install "markitdown[all]" || true
           bash tests/smoke.sh || true
