@@ -1,0 +1,66 @@
+# Data Model
+
+<!-- docguard:version 0.1.0 -->
+<!-- docguard:status draft | review | approved -->
+<!-- docguard:last-reviewed 2026-09-16 -->
+<!-- docguard:owner @your-github-username -->
+
+> **Canonical document** — Design intent. This file describes the data structures and their relationships.  
+> ⚠️ Schema changes require this doc to be updated FIRST.
+
+| Metadata | Value |
+|----------|-------|
+| **Status** | ![Status](https://img.shields.io/badge/status-draft-yellow) |
+| **Version** | `0.1.0` |
+| **Last Updated** | 2026-09-16 |
+| **Owner** | @your-github-username |
+
+---
+
+## Entities
+
+<!-- All data entities (tables, collections, models) -->
+
+| Entity | Storage | Primary Key | Description |
+|--------|---------|-------------|-------------|
+| <!-- e.g. User --> | <!-- e.g. users table --> | <!-- e.g. userId (UUID) --> | <!-- e.g. Registered users --> |
+
+## Schema Definitions
+
+<!-- Define fields for each entity -->
+
+### <!-- EntityName -->
+
+| Field | Type | Required | Default | Constraints | Description |
+|-------|------|----------|---------|-------------|-------------|
+| | | | | | |
+
+## Relationships
+
+| From | To | Type | FK/Reference | Cascade |
+|------|-----|------|-------------|---------|
+| | | <!-- 1:1, 1:many, many:many --> | | <!-- ON DELETE behavior --> |
+
+## Indexes
+
+<!-- Indexes for query performance — document which index each query uses -->
+
+| Table | Index Name | Fields | Type | Purpose |
+|-------|-----------|--------|------|---------|
+| | | | <!-- B-tree, GSI, LSI --> | |
+
+## Migration Strategy
+
+<!-- How schema changes are applied -->
+
+| Strategy | Tool | Notes |
+|----------|------|-------|
+| <!-- e.g. Migrations --> | <!-- e.g. Drizzle, Prisma, Alembic --> | |
+
+---
+
+## Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 0.1.0 | 2026-09-16 | | Initial draft |

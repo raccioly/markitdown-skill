@@ -1,0 +1,47 @@
+# Security
+
+<!-- docguard:version 0.1.0 -->
+<!-- docguard:status draft -->
+<!-- docguard:last-reviewed 2026-09-16 -->
+<!-- docguard:owner @your-github-username -->
+
+> **Canonical document** — Design intent. This file defines the security model.
+> Last updated: 2026-09-16
+
+---
+
+## Authentication
+
+<!-- How users/services authenticate -->
+
+| Method | Implementation | Details |
+|--------|---------------|---------|
+| <!-- e.g. JWT --> | <!-- e.g. RS256 tokens --> | <!-- e.g. 15min expiry --> |
+| | | |
+
+## Authorization
+
+<!-- Roles and permissions -->
+
+| Role | Permissions | Scope |
+|------|------------|-------|
+| <!-- e.g. admin --> | <!-- e.g. read, write, delete --> | <!-- e.g. All resources --> |
+| | | |
+
+## Secrets Management
+
+<!-- Where secrets are stored, never in code -->
+
+| Secret | Storage | Access Pattern |
+|--------|---------|---------------|
+| <!-- e.g. DB credentials --> | <!-- e.g. AWS Secrets Manager --> | <!-- e.g. Loaded at startup --> |
+| | | |
+
+## Security Rules
+
+<!-- Explicit rules that code must follow -->
+
+- All API routes MUST require authentication except: <!-- list public routes -->
+- Secrets MUST NOT appear in code, logs, or error messages
+- All user input MUST be validated before processing
+- PII (email, phone, name) MUST be masked in logs

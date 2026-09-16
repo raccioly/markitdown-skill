@@ -67,6 +67,19 @@ markitdown some-file.docx | head -20
 Then in Claude Code: "What are the key points in `some-file.pptx`?" — you should see it run
 `markitdown` instead of writing a Python script.
 
+
+## Usage
+
+Once installed, ask the host agent to summarize or extract from a supported file, or invoke `/markitdown` explicitly.
+
+Examples:
+
+- "Summarize `report.docx`"
+- "Extract the tables from `deck.pptx` into bullet points"
+- "Convert this spreadsheet to Markdown so I can read sheet names and values"
+
+The skill should run the MarkItDown CLI (or `uvx` / session install fallback) rather than writing a one-off extraction script.
+
 ## Scope
 
 | Reads great | Leave to native tools |

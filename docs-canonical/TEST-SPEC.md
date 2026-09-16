@@ -1,0 +1,73 @@
+# Test Specification
+
+<!-- docguard:version 0.1.0 -->
+<!-- docguard:status draft -->
+<!-- docguard:last-reviewed 2026-09-16 -->
+<!-- docguard:owner @your-github-username -->
+
+> **Canonical document** — Design intent. This file declares what tests MUST exist.  
+> Last updated: 2026-09-16
+
+---
+
+## Test Categories
+
+<!-- Which test types this project requires -->
+
+| Category | Required | Applies To | Suggested Tools |
+|----------|----------|-----------|-----------------|
+| Unit | ✅ Yes | Services, utilities, helpers | <!-- e.g. jest, vitest, pytest --> |
+| Integration | ✅ Yes | API routes, DB operations | <!-- e.g. supertest, httpx --> |
+| E2E | ✅ Yes | Critical user journeys | <!-- e.g. playwright, cypress --> |
+| Canary | ⚠️ Optional | Health checks, smoke tests | <!-- custom scripts --> |
+| Load | ⚠️ Optional | High-traffic endpoints | <!-- e.g. k6, artillery --> |
+| Security | ⚠️ Optional | Auth flows, input validation | <!-- e.g. OWASP ZAP --> |
+| Contract | ⚠️ Optional | Public-facing APIs | <!-- e.g. pact, dredd --> |
+
+## Coverage Rules
+
+<!-- Glob patterns: which source files must have matching test files -->
+
+| Source Pattern | Required Test Pattern | Category |
+|---------------|----------------------|----------|
+| <!-- e.g. src/services/**/*.ts --> | <!-- e.g. tests/unit/**/*.test.ts --> | Unit |
+| <!-- e.g. src/routes/**/*.ts --> | <!-- e.g. tests/integration/**/*.test.ts --> | Integration |
+
+## Service-to-Test Map
+
+<!-- Specific mapping of source files to their test files -->
+
+| Source File | Unit Test | Integration Test | Status |
+|------------|-----------|-----------------|--------|
+| | | | <!-- ✅ / ⚠️ / ❌ --> |
+
+## Critical User Journeys (E2E Required)
+
+<!-- Each journey listed here MUST have a corresponding E2E test file -->
+
+| # | Journey Description | Test File | Status |
+|---|-------------------|-----------|--------|
+| 1 | <!-- e.g. Login → Dashboard → View Data --> | <!-- e.g. e2e/login-flow.spec.ts --> | |
+| 2 | | | |
+
+## Canary Tests (Pre-Deploy Gates)
+
+<!-- Tests that MUST pass before any deployment -->
+
+| Canary | What It Checks | File |
+|--------|---------------|------|
+| Health | <!-- e.g. /health returns 200 --> | |
+| Auth | <!-- e.g. Login flow completes --> | |
+
+## Recommended Test Patterns
+
+<!-- DocGuard validates that files listed in the Source-to-Test Map exist on disk.
+     Keep the map up to date — stale entries will trigger warnings. -->
+
+| Pattern | Description | Priority |
+|---------|-------------|----------|
+| Config-awareness | Test behavior changes per `.docguard.json` / env config | ⚠️ High |
+| Individual functions | Test each module/function directly, not just via CLI | ⚠️ High |
+| Edge cases | Empty inputs, missing files, invalid config | ✅ Medium |
+| Error paths | Verify graceful failure, not just happy path | ✅ Medium |
+| Regression guards | Pin specific bug fixes with dedicated tests | ✅ Medium |

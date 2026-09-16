@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raccioly.github.io/docguard/schemas/docguard-config.schema.json",
+  "projectName": "markitdown-skill",
+  "version": "0.5",
+  "profile": "starter",
+  "projectType": "library",
+  "projectTypeConfig": {
+    "needsEnvVars": false,
+    "needsEnvExample": false,
+    "needsE2E": false,
+    "needsDatabase": false
+  },
+  "requiredFiles": {
+    "canonical": [
+      "docs-canonical/ARCHITECTURE.md"
+    ]
+  },
+  "validators": {
+    "structure": true,
+    "docsSync": true,
+    "drift": false,
+    "changelog": true,
+    "architecture": false,
+    "testSpec": false,
+    "security": false,
+    "environment": false,
+    "freshness": false
+  },
+  "severity": {}
+}

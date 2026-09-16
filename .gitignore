@@ -1,1 +1,6 @@
 markitdown-skill.zip
+
+# local secrets
+.env
+.env.*
+!.env.example
