@@ -3,71 +3,75 @@
 <!-- docguard:version 0.1.0 -->
 <!-- docguard:status draft -->
 <!-- docguard:last-reviewed 2026-09-16 -->
-<!-- docguard:owner @your-github-username -->
+<!-- docguard:owner @raccioly -->
 
-> **Canonical document** — Design intent. This file declares what tests MUST exist.  
+> **Canonical document** — Required tests for this **Agent Skill** package.
+> There is no web app, API, or database — **no Playwright/Cypress E2E fiction**.
+> Focus: CLI smoke, skill packaging integrity, and DocGuard gates.
 > Last updated: 2026-09-16
 
 ---
 
 ## Test Categories
 
-<!-- Which test types this project requires -->
-
 | Category | Required | Applies To | Suggested Tools |
 |----------|----------|-----------|-----------------|
-| Unit | ✅ Yes | Services, utilities, helpers | <!-- e.g. jest, vitest, pytest --> |
-| Integration | ✅ Yes | API routes, DB operations | <!-- e.g. supertest, httpx --> |
-| E2E | ✅ Yes | Critical user journeys | <!-- e.g. playwright, cypress --> |
-| Canary | ⚠️ Optional | Health checks, smoke tests | <!-- custom scripts --> |
-| Load | ⚠️ Optional | High-traffic endpoints | <!-- e.g. k6, artillery --> |
-| Security | ⚠️ Optional | Auth flows, input validation | <!-- e.g. OWASP ZAP --> |
-| Contract | ⚠️ Optional | Public-facing APIs | <!-- e.g. pact, dredd --> |
+| Unit | ❌ No | N/A — no application source tree | — |
+| Integration | ⚠️ Optional | MarkItDown CLI against sample fixtures | shell + fixture files |
+| E2E (web) | ❌ No | Not a web product | — |
+| Smoke / canary | ✅ Yes | CLI availability, skill frontmatter, zip layout | `tests/smoke.sh` |
+| DocGuard | ✅ Yes | CDD structure and score | `docguard guard`, `docguard score` |
+| Load | ❌ No | Local CLI only | — |
+| Security | ⚠️ Manual | Guardrail wording in SKILL.md | review checklist |
 
 ## Coverage Rules
 
-<!-- Glob patterns: which source files must have matching test files -->
-
-| Source Pattern | Required Test Pattern | Category |
-|---------------|----------------------|----------|
-| <!-- e.g. src/services/**/*.ts --> | <!-- e.g. tests/unit/**/*.test.ts --> | Unit |
-| <!-- e.g. src/routes/**/*.ts --> | <!-- e.g. tests/integration/**/*.test.ts --> | Integration |
+| Source / Artifact | Required Check | Category |
+|-------------------|----------------|----------|
+| `markitdown/SKILL.md` | Frontmatter `name`/`description` present; Guardrails section exists | Smoke |
+| MarkItDown CLI | `markitdown --version` or `uvx "markitdown[all]" --version` succeeds | Smoke |
+| Release zip | `markitdown-skill.zip` (when built) contains `markitdown/SKILL.md` | Smoke |
+| Canonical docs | `docguard guard` has no blocking structure failures | DocGuard |
 
 ## Service-to-Test Map
 
-<!-- Specific mapping of source files to their test files -->
+| Artifact | Smoke Test | Status |
+|----------|------------|--------|
+| `markitdown/SKILL.md` | `tests/smoke.sh` (frontmatter + guardrails) | ✅ |
+| MarkItDown CLI | `tests/smoke.sh` (version probe) | ✅ |
+| Zip package | `tests/smoke.sh` (optional if zip present) | ⚠️ |
+| CDD docs | `docguard score` / `docguard guard` | ✅ |
 
-| Source File | Unit Test | Integration Test | Status |
-|------------|-----------|-----------------|--------|
-| | | | <!-- ✅ / ⚠️ / ❌ --> |
+## Critical journeys (skill — not web E2E)
 
-## Critical User Journeys (E2E Required)
+| # | Journey | Verification | Status |
+|---|---------|--------------|--------|
+| 1 | Install CLI → convert a small `.docx`/`.csv` to Markdown | Manual or fixture smoke | ⚠️ |
+| 2 | Skill loads and prefers CLI over ad-hoc Python extraction | Agent session checklist in README Verify | ⚠️ |
+| 3 | Large file path uses `-o` then selective read | Manual against SKILL.md How section | ⚠️ |
 
-<!-- Each journey listed here MUST have a corresponding E2E test file -->
+## Canary Tests (pre-release)
 
-| # | Journey Description | Test File | Status |
-|---|-------------------|-----------|--------|
-| 1 | <!-- e.g. Login → Dashboard → View Data --> | <!-- e.g. e2e/login-flow.spec.ts --> | |
-| 2 | | | |
-
-## Canary Tests (Pre-Deploy Gates)
-
-<!-- Tests that MUST pass before any deployment -->
-
-| Canary | What It Checks | File |
-|--------|---------------|------|
-| Health | <!-- e.g. /health returns 200 --> | |
-| Auth | <!-- e.g. Login flow completes --> | |
+| Canary | What It Checks | Command / File |
+|--------|----------------|----------------|
+| CLI present | MarkItDown or uvx fallback responds | `tests/smoke.sh` |
+| Skill package | SKILL.md schema basics | `tests/smoke.sh` |
+| DocGuard | Score / guard thresholds for the branch | `docguard score` |
 
 ## Recommended Test Patterns
 
-<!-- DocGuard validates that files listed in the Source-to-Test Map exist on disk.
-     Keep the map up to date — stale entries will trigger warnings. -->
-
 | Pattern | Description | Priority |
 |---------|-------------|----------|
-| Config-awareness | Test behavior changes per `.docguard.json` / env config | ⚠️ High |
-| Individual functions | Test each module/function directly, not just via CLI | ⚠️ High |
-| Edge cases | Empty inputs, missing files, invalid config | ✅ Medium |
-| Error paths | Verify graceful failure, not just happy path | ✅ Medium |
-| Regression guards | Pin specific bug fixes with dedicated tests | ✅ Medium |
+| CLI version smoke | Fail fast if neither `markitdown` nor `uvx` works | High |
+| Frontmatter pin | Assert `name: markitdown` stays stable for auto-load | High |
+| Empty / missing file | CLI error path documented; smoke may skip without fixtures | Medium |
+| No fake web E2E | Do not add Playwright suites for this skill pack | High |
+
+## Running tests
+
+```bash
+# From repo root
+bash tests/smoke.sh
+docguard score
+docguard guard
+```
